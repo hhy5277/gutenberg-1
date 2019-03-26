@@ -1024,6 +1024,8 @@ export class RichText extends Component {
 		const classes = classnames( wrapperClassName, 'editor-rich-text block-editor-rich-text' );
 		const record = this.getRecord();
 
+		const { lastState = {} } = this;
+
 		return (
 			<div className={ classes }
 				onFocus={ this.setFocusedElement }
@@ -1088,7 +1090,7 @@ export class RichText extends Component {
 									{ MultilineTag ? <MultilineTag>{ placeholder }</MultilineTag> : placeholder }
 								</Tagname>
 							}
-							{ isSelected && <FormatEdit value={ record } onChange={ this.onChange } /> }
+							{ isSelected && <FormatEdit value={ { ...record, start: record.start ? record.start : lastState.start, end: record.end ? record.end : lastState.end } } onChange={ this.onChange } /> }
 						</Fragment>
 					) }
 				</Autocomplete>
